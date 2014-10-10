@@ -13,6 +13,8 @@
 		C55584D019E639EB003C96D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C55584CF19E639EB003C96D8 /* Images.xcassets */; };
 		C55584D319E639EB003C96D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55584D119E639EB003C96D8 /* LaunchScreen.xib */; };
 		C55584DF19E639EB003C96D8 /* GTweenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584DE19E639EB003C96D8 /* GTweenTests.swift */; };
+		C55584EA19E63A9A003C96D8 /* GTween.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584E919E63A9A003C96D8 /* GTween.swift */; };
+		C55584ED19E64ABB003C96D8 /* Linear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584EC19E64ABB003C96D8 /* Linear.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		C55584D819E639EB003C96D8 /* GTweenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTweenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55584DD19E639EB003C96D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55584DE19E639EB003C96D8 /* GTweenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTweenTests.swift; sourceTree = "<group>"; };
+		C55584E919E63A9A003C96D8 /* GTween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GTween.swift; path = GTween/GTween.swift; sourceTree = "<group>"; };
+		C55584EC19E64ABB003C96D8 /* Linear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Linear.swift; path = GTween/easings/Linear.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		C55584C519E639EB003C96D8 /* GTween */ = {
 			isa = PBXGroup;
 			children = (
+				C55584E819E63A56003C96D8 /* GTween */,
 				C55584C819E639EB003C96D8 /* AppDelegate.swift */,
 				C55584CA19E639EB003C96D8 /* ViewController.swift */,
 				C55584CC19E639EB003C96D8 /* Main.storyboard */,
@@ -110,6 +115,23 @@
 				C55584DD19E639EB003C96D8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C55584E819E63A56003C96D8 /* GTween */ = {
+			isa = PBXGroup;
+			children = (
+				C55584EB19E64A6D003C96D8 /* easings */,
+				C55584E919E63A9A003C96D8 /* GTween.swift */,
+			);
+			name = GTween;
+			sourceTree = "<group>";
+		};
+		C55584EB19E64A6D003C96D8 /* easings */ = {
+			isa = PBXGroup;
+			children = (
+				C55584EC19E64ABB003C96D8 /* Linear.swift */,
+			);
+			name = easings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +236,8 @@
 			files = (
 				C55584CB19E639EB003C96D8 /* ViewController.swift in Sources */,
 				C55584C919E639EB003C96D8 /* AppDelegate.swift in Sources */,
+				C55584ED19E64ABB003C96D8 /* Linear.swift in Sources */,
+				C55584EA19E63A9A003C96D8 /* GTween.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

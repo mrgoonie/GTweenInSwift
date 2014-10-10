@@ -13,6 +13,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        GTween.to(self, time: 0.5, params: ["x":100, "y":200],
+            events: ["onStart":{
+                println("start")
+            }])
     }
 
     override func didReceiveMemoryWarning() {
