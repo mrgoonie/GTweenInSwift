@@ -229,7 +229,6 @@ class TweenObject:NSObject {
             
             if scaleX != nil {
                 newScaleX = getNewValue(scaleX, fromValue: originScaleX, ease: ease!)
-                println(originScaleX)
             } else {
                 newScaleX = xscale(target)
             }
@@ -243,43 +242,44 @@ class TweenObject:NSObject {
             var newFrame = target.frame
             newFrame.origin.x = CGFloat(newX)
             newFrame.origin.y = CGFloat(newY)
-            newFrame.size.width = CGFloat(newW)
-            newFrame.size.height = CGFloat(newH)
+            
+            if(newScaleX == nil) { newFrame.size.width = CGFloat(newW) }
+            if(newScaleY == nil) { newFrame.size.height = CGFloat(newH) }
             
             if((target as? UIView) != nil){
                 var newTarget = (target as UIView)
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UILabel) != nil){
                 var newTarget = (target as UILabel)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIImageView) != nil){
                 var newTarget = (target as UIImageView)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIButton) != nil){
                 var newTarget = (target as UIButton)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UICollectionView) != nil){
                 var newTarget = (target as UICollectionView)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UITextView) != nil){
                 var newTarget = (target as UITextView)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIScrollView) != nil){
                 var newTarget = (target as UIScrollView)
                 
                 newTarget.frame = newFrame
-                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIPickerView) != nil){
                 (target as UIPickerView).frame = newFrame
             } else if((target as? UIWebView) != nil){
