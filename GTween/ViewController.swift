@@ -17,11 +17,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        item.setTranslatesAutoresizingMaskIntoConstraints(true)
-        item.autoresizesSubviews = false;
         item.layer.cornerRadius = 20
         
-        /*GTween.to(item, time: 2, params: ["x":100, "y":500, "ease":Quart.easeInOut, "delay":1],
+        GTween.to(item, time: 2, params: ["x":100, "y":500, "width":100, "height":100, "ease":Quart.easeInOut, "delay":1],
             events: ["onComplete":{
                 println("item move complete")
             }])
@@ -34,7 +32,7 @@ class ViewController: UIViewController {
         GTween.to(btn, time: 2, params: ["x":200, "ease":Quart.easeInOut, "delay":3],
             events: ["onComplete":{
                 println("btn move complete")
-            }])*/
+            }])
     }
 
     override func didReceiveMemoryWarning() {

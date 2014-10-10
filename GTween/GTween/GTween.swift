@@ -212,12 +212,30 @@ class TweenObject:NSObject {
                 newW = Float(targetFrame.size.width)
             }
             
+            if height != nil {
+                newH = getNewValue(height, fromValue: Float(targetFrame.size.height), ease: ease!)
+            } else {
+                newH = Float(targetFrame.size.height)
+            }
+            
+            /*if scaleX != nil {
+                var transform = target.transform;
+                
+                //newScaleX = getNewValue(scaleX, fromValue: Float(targetFrame.size.height), ease: ease!)
+            } else {
+                newScaleX = target.transform
+            }*/
+            
             var newFrame = target.frame
             newFrame.origin.x = CGFloat(newX)
             newFrame.origin.y = CGFloat(newY)
+            newFrame.size.width = CGFloat(newW)
+            newFrame.size.height = CGFloat(newH)
             
             if((target as? UIView) != nil){
-                (target as UIView).frame = newFrame
+                var newTarget = (target as UIView)
+                newTarget.frame = newFrame
+                newTarget.transform = CGAffineTransformMakeScale(2, 2)
             } else if((target as? UILabel) != nil){
                 (target as UILabel).frame = newFrame
             } else if((target as? UIImageView) != nil){
@@ -298,6 +316,16 @@ class TweenObject:NSObject {
         
         currentTime += loop.duration * speed;
     }
+    
+    /*func xscale(item:AnyObject)->Float {
+        var t = item.transform;
+        return sqrt(t.a * t.a + t.c * t.c);
+    }
+    
+    func yscale(item:AnyObject)->Float {
+        var t = self.transform;
+        return sqrt(t.b * t.b + t.d * t.d);
+    }*/
     
     func getEaseNumber(type:String, time:Float)->Float {
         var result:Float;
