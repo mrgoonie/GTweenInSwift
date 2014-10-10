@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         
         item.layer.cornerRadius = 20
         
-        GTween.to(item, time: 2, params: ["x":100, "y":500, "width":100, "height":100, "ease":Quart.easeInOut, "delay":1],
+        GTween.to(item, time: 2, params: ["scaleX":2, "scaleY":2, "ease":Quart.easeInOut, "delay":1],
             events: ["onComplete":{
                 println("item move complete")
             }])

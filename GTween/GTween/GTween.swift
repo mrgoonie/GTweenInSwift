@@ -27,6 +27,7 @@ struct GTween {
     }*/
 }
 
+
 class TweenObject:NSObject {
     var loop:CADisplayLink!
     
@@ -82,6 +83,8 @@ class TweenObject:NSObject {
     var scaleX:Float!
     var scaleY:Float!
     var alpha:Float!
+    var originScaleX:Float!
+    var originScaleY:Float!
     
     init(_target:AnyObject, time:Float, params:[String: Any], events:[String: ()->Void] = Dictionary()){
         target = _target
@@ -165,6 +168,9 @@ class TweenObject:NSObject {
         
         super.init()
         
+        originScaleX = self.xscale(target)
+        originScaleY = self.yscale(target)
+        
         setup()
     }
     
@@ -193,6 +199,9 @@ class TweenObject:NSObject {
             var newY:Float!
             var newW:Float!
             var newH:Float!
+            var newAlpha:Float!
+            var newScaleX:Float!
+            var newScaleY:Float!
             
             if x != nil {
                 newX = getNewValue(x, fromValue: Float(targetFrame.origin.x), ease: ease!)
@@ -218,13 +227,18 @@ class TweenObject:NSObject {
                 newH = Float(targetFrame.size.height)
             }
             
-            /*if scaleX != nil {
-                var transform = target.transform;
-                
-                //newScaleX = getNewValue(scaleX, fromValue: Float(targetFrame.size.height), ease: ease!)
+            if scaleX != nil {
+                newScaleX = getNewValue(scaleX, fromValue: originScaleX, ease: ease!)
+                println(originScaleX)
             } else {
-                newScaleX = target.transform
-            }*/
+                newScaleX = xscale(target)
+            }
+            
+            if scaleY != nil {
+                newScaleY = getNewValue(scaleY, fromValue: originScaleY, ease: ease!)
+            } else {
+                newScaleY = yscale(target)
+            }
             
             var newFrame = target.frame
             newFrame.origin.x = CGFloat(newX)
@@ -235,19 +249,37 @@ class TweenObject:NSObject {
             if((target as? UIView) != nil){
                 var newTarget = (target as UIView)
                 newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(2, 2)
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UILabel) != nil){
-                (target as UILabel).frame = newFrame
+                var newTarget = (target as UILabel)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIImageView) != nil){
-                (target as UILabel).frame = newFrame
+                var newTarget = (target as UIImageView)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIButton) != nil){
-                (target as UIButton).frame = newFrame
+                var newTarget = (target as UIButton)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UICollectionView) != nil){
-                (target as UICollectionView).frame = newFrame
+                var newTarget = (target as UICollectionView)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UITextView) != nil){
-                (target as UITextView).frame = newFrame
+                var newTarget = (target as UITextView)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIScrollView) != nil){
-                (target as UIScrollView).frame = newFrame
+                var newTarget = (target as UIScrollView)
+                
+                newTarget.frame = newFrame
+                //newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             } else if((target as? UIPickerView) != nil){
                 (target as UIPickerView).frame = newFrame
             } else if((target as? UIWebView) != nil){
@@ -266,6 +298,12 @@ class TweenObject:NSObject {
                 (target as UIStepper).frame = newFrame
             }
             
+            if alpha != nil {
+                newAlpha = getNewValue(alpha, fromValue: Float(target.layer.opacity), ease: ease!)
+                target.layer.opacity = newAlpha
+            } else {
+                newAlpha = Float(target.layer.opacity)
+            }
             
             
             //=============================================
@@ -317,15 +355,58 @@ class TweenObject:NSObject {
         currentTime += loop.duration * speed;
     }
     
-    /*func xscale(item:AnyObject)->Float {
-        var t = item.transform;
-        return sqrt(t.a * t.a + t.c * t.c);
+    func xscale(item:AnyObject)->Float {
+        var t:CGAffineTransform!
+        if item is UIView {
+            t = (item as UIView).transform;
+        }
+        if item is UILabel {
+            t = (item as UILabel).transform;
+        }
+        if item is UIImageView {
+            t = (item as UIImageView).transform;
+        }
+        if item is UIButton {
+            t = (item as UIButton).transform;
+        }
+        if item is UITextView {
+            t = (item as UITextView).transform;
+        }
+        if item is UIScrollView {
+            t = (item as UIScrollView).transform;
+        }
+        if item is UICollectionView {
+            t = (item as UICollectionView).transform;
+        }
+        
+        return Float(sqrt(t.a * t.a + t.c * t.c));
     }
     
     func yscale(item:AnyObject)->Float {
-        var t = self.transform;
-        return sqrt(t.b * t.b + t.d * t.d);
-    }*/
+        var t:CGAffineTransform!
+        if item is UIView {
+            t = (item as UIView).transform;
+        }
+        if item is UILabel {
+            t = (item as UILabel).transform;
+        }
+        if item is UIImageView {
+            t = (item as UIImageView).transform;
+        }
+        if item is UIButton {
+            t = (item as UIButton).transform;
+        }
+        if item is UITextView {
+            t = (item as UITextView).transform;
+        }
+        if item is UIScrollView {
+            t = (item as UIScrollView).transform;
+        }
+        if item is UICollectionView {
+            t = (item as UICollectionView).transform;
+        }
+        return Float(sqrt(t.b * t.b + t.d * t.d));
+    }
     
     func getEaseNumber(type:String, time:Float)->Float {
         var result:Float;
