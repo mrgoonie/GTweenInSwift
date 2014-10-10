@@ -10,9 +10,21 @@ import Foundation
 
 struct Linear {
     
-    static var time:Float!
+    //static var time:Float!
     
-    static var easeNone:Float {
+    static var easeNone:String { return Ease.Linear + ".easeNone" }
+    
+    
+}
+
+class ModeLinear {
+    var time:Float!
+    
+    init(){
+        
+    }
+    
+    var easeNoneNumber:Float {
         return fminf(1.0, fmaxf(0.0, time));
     }
 }

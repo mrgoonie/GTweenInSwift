@@ -9,15 +9,32 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var item: UIView!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var btn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        GTween.to(self, time: 0.5, params: ["x":100, "y":200],
-            events: ["onStart":{
-                println("start")
+        item.setTranslatesAutoresizingMaskIntoConstraints(true)
+        item.autoresizesSubviews = false;
+        item.layer.cornerRadius = 20
+        
+        /*GTween.to(item, time: 2, params: ["x":100, "y":500, "ease":Quart.easeInOut, "delay":1],
+            events: ["onComplete":{
+                println("item move complete")
             }])
+        
+        GTween.to(label, time: 2, params: ["y":50, "ease":Quart.easeInOut, "delay":2],
+            events: ["onComplete":{
+                println("label move complete")
+            }])
+        
+        GTween.to(btn, time: 2, params: ["x":200, "ease":Quart.easeInOut, "delay":3],
+            events: ["onComplete":{
+                println("btn move complete")
+            }])*/
     }
 
     override func didReceiveMemoryWarning() {

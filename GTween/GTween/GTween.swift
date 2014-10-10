@@ -19,7 +19,6 @@ struct GTween {
     static func to(target:AnyObject, time:Float, params:Dictionary<String, Any>, events:[String: ()->Void]=Dictionary()){
         var tween = TweenObject(_target: target, time: time, params:params, events:events)
         tweenArr += [tween]
-        
     }
     
     /*static func from(target:AnyObject, dur:Float, params:Dictionary<String, AnyObject>){
@@ -31,8 +30,8 @@ struct GTween {
 class TweenObject:NSObject {
     var loop:CADisplayLink!
     
-    var fromValue:Float!
-    var toValue:Float!
+    /*var fromValue:Float!
+    var toValue:Float!*/
     var changeValue:Float!
     
     var speed:Double = 1
@@ -55,7 +54,19 @@ class TweenObject:NSObject {
     var tweenParams:[String: AnyObject]!
     
     var ease:Float?
-    //var easeType:AnyClass!
+    var easeType:String = "Linear.easeNone" //default
+    
+    var linearMode:ModeLinear = ModeLinear()
+    var backMode:ModeBack = ModeBack()
+    var quintMode:ModeQuint = ModeQuint()
+    var elasticMode:ModeElastic = ModeElastic()
+    var bounceMode:ModeBounce = ModeBounce()
+    var sineMode:ModeSine = ModeSine()
+    var expoMode:ModeExpo = ModeExpo()
+    var circMode:ModeCirc = ModeCirc()
+    var cubicMode:ModeCubic = ModeCubic()
+    var quartMode:ModeQuart = ModeQuart()
+    var quadMode:ModeQuad = ModeQuad()
     
     typealias OnCompleteType = ()->Void
     
@@ -63,23 +74,36 @@ class TweenObject:NSObject {
     var runOnUpdate:(()->())?
     var runOnStart:(()->())?
     
+    //tween values
+    var x:Float!
+    var y:Float!
+    var width:Float!
+    var height:Float!
+    var scaleX:Float!
+    var scaleY:Float!
+    var alpha:Float!
+    
     init(_target:AnyObject, time:Float, params:[String: Any], events:[String: ()->Void] = Dictionary()){
         target = _target
         _time = time;
         targetFrame = target.frame;
         inputParams = params;
+        println(targetFrame)
+        if var inputEase = params["ease"] as? String {
+            easeType = String(inputEase)
+        }
+        
+        if var delayInInt = params["delay"] as? Int {
+            delay = Double(delayInInt)
+        } else if let delayInDouble = params["delay"] as? Float {
+            delay = Double(delayInDouble)
+        } else if let delayInFloat = params["delay"] as? Double {
+            delay = delayInFloat
+        }
         
         runOnComplete  = events["onComplete"]
         runOnUpdate    = events["onUpdate"]
         runOnStart     = events["onStart"]
-        
-        var x:Float!
-        var y:Float!
-        var width:Float!
-        var height:Float!
-        var scaleX:Float!
-        var scaleY:Float!
-        var alpha:Float!
         
         if var xInInt = params["x"] as? Int {
             x = Float(xInInt)
@@ -151,7 +175,7 @@ class TweenObject:NSObject {
     }
     
     func onLoop(){
-        println("\(currentTime)")
+        //println("\(currentTime)")
         if ((currentTime >= delay && speed > 0) || (speed < 0))// && _currentTime <= _totalTime))
         {
             //var value;
@@ -160,18 +184,73 @@ class TweenObject:NSObject {
             time = fminf(1.0, fmaxf(0.0, time));
             
             //=============================================
-            
-            //Linear.time = time
-            
-            //changeValue = toValue - fromValue
-            //var value = fromValue + changeValue * Linear.easeNone;
-            
+            //        UPDATE VALUES
             //=============================================
             
-            /*[_values enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-                {
-                [(GSTweenData*)obj updateWithValue:value];
-                }];*/
+            ease = getEaseNumber(easeType, time: time)
+            
+            var newX:Float!
+            var newY:Float!
+            var newW:Float!
+            var newH:Float!
+            
+            if x != nil {
+                newX = getNewValue(x, fromValue: Float(targetFrame.origin.x), ease: ease!)
+            } else {
+                newX = Float(targetFrame.origin.x)
+            }
+            
+            if y != nil {
+                newY = getNewValue(y, fromValue: Float(targetFrame.origin.y), ease: ease!)
+            } else {
+                newY = Float(targetFrame.origin.y)
+            }
+            
+            if width != nil {
+                newW = getNewValue(width, fromValue: Float(targetFrame.size.width), ease: ease!)
+            } else {
+                newW = Float(targetFrame.size.width)
+            }
+            
+            var newFrame = target.frame
+            newFrame.origin.x = CGFloat(newX)
+            newFrame.origin.y = CGFloat(newY)
+            
+            if((target as? UIView) != nil){
+                (target as UIView).frame = newFrame
+            } else if((target as? UILabel) != nil){
+                (target as UILabel).frame = newFrame
+            } else if((target as? UIImageView) != nil){
+                (target as UILabel).frame = newFrame
+            } else if((target as? UIButton) != nil){
+                (target as UIButton).frame = newFrame
+            } else if((target as? UICollectionView) != nil){
+                (target as UICollectionView).frame = newFrame
+            } else if((target as? UITextView) != nil){
+                (target as UITextView).frame = newFrame
+            } else if((target as? UIScrollView) != nil){
+                (target as UIScrollView).frame = newFrame
+            } else if((target as? UIPickerView) != nil){
+                (target as UIPickerView).frame = newFrame
+            } else if((target as? UIWebView) != nil){
+                (target as UIWebView).frame = newFrame
+            } else if((target as? UIToolbar) != nil){
+                (target as UIToolbar).frame = newFrame
+            } else if((target as? UISwitch) != nil){
+                (target as UISwitch).frame = newFrame
+            } else if((target as? UIActivityIndicatorView) != nil){
+                (target as UIActivityIndicatorView).frame = newFrame
+            } else if((target as? UIProgressView) != nil){
+                (target as UIProgressView).frame = newFrame
+            } else if((target as? UIPageControl) != nil){
+                (target as UIPageControl).frame = newFrame
+            } else if((target as? UIStepper) != nil){
+                (target as UIStepper).frame = newFrame
+            }
+            
+            
+            
+            //=============================================
             
             if(runOnStart != nil && !isStarted){
                 runOnStart?()
@@ -218,6 +297,176 @@ class TweenObject:NSObject {
         }
         
         currentTime += loop.duration * speed;
+    }
+    
+    func getEaseNumber(type:String, time:Float)->Float {
+        var result:Float;
+        
+        switch(type){
+            
+        case Back.easeOut:
+            backMode.time = time
+            result = backMode.easeOutNumber
+            break
+            
+        case Back.easeIn:
+            backMode.time = time
+            result = backMode.easeInNumber
+            break
+            
+        case Back.easeInOut:
+            backMode.time = time
+            result = backMode.easeInOutNumber
+            break
+        
+        case Elastic.easeOut:
+            elasticMode.time = time
+            result = elasticMode.easeOutNumber
+            break
+            
+        case Elastic.easeIn:
+            elasticMode.time = time
+            result = elasticMode.easeInNumber
+            break
+            
+        case Elastic.easeInOut:
+            elasticMode.time = time
+            result = elasticMode.easeInOutNumber
+            break
+            
+        case Bounce.easeOut:
+            bounceMode.time = time
+            result = bounceMode.easeOutNumber
+            break
+            
+        case Bounce.easeIn:
+            bounceMode.time = time
+            result = bounceMode.easeInNumber
+            break
+            
+        case Bounce.easeInOut:
+            bounceMode.time = time
+            result = bounceMode.easeInOutNumber
+            break
+            
+        case Sine.easeOut:
+            sineMode.time = time
+            result = sineMode.easeOutNumber
+            break
+            
+        case Sine.easeIn:
+            sineMode.time = time
+            result = sineMode.easeInNumber
+            break
+            
+        case Sine.easeInOut:
+            sineMode.time = time
+            result = sineMode.easeInOutNumber
+            break
+           
+        case Expo.easeOut:
+            expoMode.time = time
+            result = expoMode.easeOutNumber
+            break
+            
+        case Expo.easeIn:
+            expoMode.time = time
+            result = expoMode.easeInNumber
+            break
+            
+        case Expo.easeInOut:
+            expoMode.time = time
+            result = expoMode.easeInOutNumber
+            break
+            
+        case Circ.easeOut:
+            circMode.time = time
+            result = circMode.easeOutNumber
+            break
+            
+        case Circ.easeIn:
+            circMode.time = time
+            result = circMode.easeInNumber
+            break
+            
+        case Circ.easeInOut:
+            circMode.time = time
+            result = circMode.easeInOutNumber
+            break
+            
+        case Cubic.easeOut:
+            cubicMode.time = time
+            result = cubicMode.easeOutNumber
+            break
+            
+        case Cubic.easeIn:
+            cubicMode.time = time
+            result = cubicMode.easeInNumber
+            break
+            
+        case Cubic.easeInOut:
+            cubicMode.time = time
+            result = cubicMode.easeInOutNumber
+            break
+            
+        case Quad.easeOut:
+            quadMode.time = time
+            result = quadMode.easeOutNumber
+            break
+            
+        case Quad.easeIn:
+            quadMode.time = time
+            result = quadMode.easeInNumber
+            break
+            
+        case Quad.easeInOut:
+            quadMode.time = time
+            result = quadMode.easeInOutNumber
+            break
+            
+        case Quart.easeOut:
+            quartMode.time = time
+            result = quartMode.easeOutNumber
+            break
+        
+        case Quart.easeIn:
+            quartMode.time = time
+            result = quartMode.easeInNumber
+            break
+            
+        case Quart.easeInOut:
+            quartMode.time = time
+            result = quartMode.easeInOutNumber
+            break
+            
+        case Quint.easeOut:
+            quintMode.time = time
+            result = quintMode.easeOutNumber
+            break
+            
+        case Quint.easeIn:
+            quintMode.time = time
+            result = quintMode.easeInNumber
+            break
+            
+        case Quint.easeInOut:
+            quintMode.time = time
+            result = quintMode.easeInOutNumber
+            break
+            
+        default:
+            linearMode.time = time
+            result = linearMode.easeNoneNumber
+            break
+        }
+        
+        return result
+    }
+    
+    func getNewValue(toValue:Float, fromValue:Float, ease:Float)->Float {
+        changeValue = toValue - fromValue
+        var value = fromValue + changeValue * ease;
+        return value
     }
     
     func start(){

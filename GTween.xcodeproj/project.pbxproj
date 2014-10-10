@@ -15,6 +15,17 @@
 		C55584DF19E639EB003C96D8 /* GTweenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584DE19E639EB003C96D8 /* GTweenTests.swift */; };
 		C55584EA19E63A9A003C96D8 /* GTween.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584E919E63A9A003C96D8 /* GTween.swift */; };
 		C55584ED19E64ABB003C96D8 /* Linear.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584EC19E64ABB003C96D8 /* Linear.swift */; };
+		C5CE783619E7A035007C5C34 /* Back.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783519E7A035007C5C34 /* Back.swift */; };
+		C5CE783819E7B328007C5C34 /* Quint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783719E7B328007C5C34 /* Quint.swift */; };
+		C5CE783A19E7B67E007C5C34 /* Elastic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783919E7B67E007C5C34 /* Elastic.swift */; };
+		C5CE783C19E7B908007C5C34 /* Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783B19E7B908007C5C34 /* Ease.swift */; };
+		C5CE783E19E7BDFA007C5C34 /* Bounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783D19E7BDFA007C5C34 /* Bounce.swift */; };
+		C5CE784019E7C2BF007C5C34 /* Sine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE783F19E7C2BF007C5C34 /* Sine.swift */; };
+		C5CE784219E7C3E0007C5C34 /* Expo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE784119E7C3E0007C5C34 /* Expo.swift */; };
+		C5CE784419E7C55C007C5C34 /* Circ.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE784319E7C55C007C5C34 /* Circ.swift */; };
+		C5CE784619E7C87F007C5C34 /* Cubic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE784519E7C87F007C5C34 /* Cubic.swift */; };
+		C5CE784819E7C9C5007C5C34 /* Quart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE784719E7C9C5007C5C34 /* Quart.swift */; };
+		C5CE784A19E7CA34007C5C34 /* Quad.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE784919E7CA34007C5C34 /* Quad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +51,17 @@
 		C55584DE19E639EB003C96D8 /* GTweenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTweenTests.swift; sourceTree = "<group>"; };
 		C55584E919E63A9A003C96D8 /* GTween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GTween.swift; path = GTween/GTween.swift; sourceTree = "<group>"; };
 		C55584EC19E64ABB003C96D8 /* Linear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Linear.swift; path = GTween/easings/Linear.swift; sourceTree = "<group>"; };
+		C5CE783519E7A035007C5C34 /* Back.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Back.swift; path = GTween/easings/Back.swift; sourceTree = "<group>"; };
+		C5CE783719E7B328007C5C34 /* Quint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Quint.swift; path = GTween/easings/Quint.swift; sourceTree = "<group>"; };
+		C5CE783919E7B67E007C5C34 /* Elastic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Elastic.swift; path = GTween/easings/Elastic.swift; sourceTree = "<group>"; };
+		C5CE783B19E7B908007C5C34 /* Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ease.swift; path = GTween/easings/Ease.swift; sourceTree = "<group>"; };
+		C5CE783D19E7BDFA007C5C34 /* Bounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bounce.swift; path = GTween/easings/Bounce.swift; sourceTree = "<group>"; };
+		C5CE783F19E7C2BF007C5C34 /* Sine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sine.swift; path = GTween/easings/Sine.swift; sourceTree = "<group>"; };
+		C5CE784119E7C3E0007C5C34 /* Expo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Expo.swift; path = GTween/easings/Expo.swift; sourceTree = "<group>"; };
+		C5CE784319E7C55C007C5C34 /* Circ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Circ.swift; path = GTween/easings/Circ.swift; sourceTree = "<group>"; };
+		C5CE784519E7C87F007C5C34 /* Cubic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cubic.swift; path = GTween/easings/Cubic.swift; sourceTree = "<group>"; };
+		C5CE784719E7C9C5007C5C34 /* Quart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Quart.swift; path = GTween/easings/Quart.swift; sourceTree = "<group>"; };
+		C5CE784919E7CA34007C5C34 /* Quad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Quad.swift; path = GTween/easings/Quad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +152,17 @@
 			isa = PBXGroup;
 			children = (
 				C55584EC19E64ABB003C96D8 /* Linear.swift */,
+				C5CE783519E7A035007C5C34 /* Back.swift */,
+				C5CE783719E7B328007C5C34 /* Quint.swift */,
+				C5CE783919E7B67E007C5C34 /* Elastic.swift */,
+				C5CE783B19E7B908007C5C34 /* Ease.swift */,
+				C5CE783D19E7BDFA007C5C34 /* Bounce.swift */,
+				C5CE783F19E7C2BF007C5C34 /* Sine.swift */,
+				C5CE784119E7C3E0007C5C34 /* Expo.swift */,
+				C5CE784319E7C55C007C5C34 /* Circ.swift */,
+				C5CE784519E7C87F007C5C34 /* Cubic.swift */,
+				C5CE784719E7C9C5007C5C34 /* Quart.swift */,
+				C5CE784919E7CA34007C5C34 /* Quad.swift */,
 			);
 			name = easings;
 			sourceTree = "<group>";
@@ -236,7 +269,18 @@
 			files = (
 				C55584CB19E639EB003C96D8 /* ViewController.swift in Sources */,
 				C55584C919E639EB003C96D8 /* AppDelegate.swift in Sources */,
+				C5CE784419E7C55C007C5C34 /* Circ.swift in Sources */,
+				C5CE784819E7C9C5007C5C34 /* Quart.swift in Sources */,
+				C5CE784619E7C87F007C5C34 /* Cubic.swift in Sources */,
+				C5CE784219E7C3E0007C5C34 /* Expo.swift in Sources */,
+				C5CE784019E7C2BF007C5C34 /* Sine.swift in Sources */,
 				C55584ED19E64ABB003C96D8 /* Linear.swift in Sources */,
+				C5CE783C19E7B908007C5C34 /* Ease.swift in Sources */,
+				C5CE783A19E7B67E007C5C34 /* Elastic.swift in Sources */,
+				C5CE783819E7B328007C5C34 /* Quint.swift in Sources */,
+				C5CE783E19E7BDFA007C5C34 /* Bounce.swift in Sources */,
+				C5CE784A19E7CA34007C5C34 /* Quad.swift in Sources */,
+				C5CE783619E7A035007C5C34 /* Back.swift in Sources */,
 				C55584EA19E63A9A003C96D8 /* GTween.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +475,7 @@
 				C55584E419E639EB003C96D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C55584E519E639EB003C96D8 /* Build configuration list for PBXNativeTarget "GTweenTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +484,7 @@
 				C55584E719E639EB003C96D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
