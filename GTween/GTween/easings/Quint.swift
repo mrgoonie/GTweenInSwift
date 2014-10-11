@@ -26,23 +26,22 @@ class ModeQuint {
     }
     
     var easeInNumber:Float {
-        return time * time * ((_sValue + 1) * time - _sValue);
+        return time * time * time * time * time;
     }
     
     var easeOutNumber:Float {
-        time = time - 1;
-        return time * time * ((_sValue + 1) * time + _sValue) + 1;
+        time = time - 1.0;
+        return time * time * time * time * time + 1.0;
     }
     
     var easeInOutNumber:Float {
-        //println("easeInOut")
-        time = time * 2;
-        var s = _sValue * 1.525;
-        if (time < 1){
-            return 0.5 * (time * time * ((s + 1) * time - s));
-        } else {
-            time = time - 2;
-            return 0.5 * (time * time * ((s + 1) * time + s) + 2);
+        time = time * 2.0;
+            
+        if (time < 1.0){
+            return 0.5 * time * time * time * time * time;
         }
+        
+        time = time - 2.0;
+        return 0.5 * (time * time * time * time * time + 2.0);
     }
 }

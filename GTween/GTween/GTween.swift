@@ -23,9 +23,7 @@ let onUpdate = "onUpdate"
 let onStart = "onStart"
 
 struct GTween {
-    //static var loop:CADisplayLink!
     static var tweenArr:[TweenObject] = []
-    //var speed:Double = 0.5;
     
     static func to(target:AnyObject, time:Float, params:Dictionary<String, Any>, events:[String: ()->Void]=Dictionary()){
         var tween = TweenObject(_target: target, time: time, params:params, events:events)
@@ -94,10 +92,12 @@ class TweenObject:NSObject {
     var toScaleX:Float!
     var toScaleY:Float!
     var toAlpha:Float!
+    var toRotation:Float!
     var originScaleX:Float!
     var originScaleY:Float!
     var originCenterX:Float!
     var originCenterY:Float!
+    var originRotation:Float!
     
     init(_target:AnyObject, time:Float, params:[String: Any], events:[String: ()->Void] = Dictionary()){
         target = _target
@@ -180,12 +180,23 @@ class TweenObject:NSObject {
             toAlpha = alphaInFloat
         }
         
-        println("x:\(toX) y:\(toY) scaleX:\(toScaleX) scaleY:\(toScaleY) alpha:\(toAlpha)")
+        if let rotationInInt = params["rotation"] as? Int {
+            toRotation = Float(rotationInInt)
+        } else if let rotationInDouble = params["rotation"] as? Double {
+            toRotation = Float(rotationInDouble)
+        } else if let rotationInFloat = params["rotation"] as? Float {
+            toRotation = rotationInFloat
+        }
+        
+        //println("x:\(toX) y:\(toY) scaleX:\(toScaleX) scaleY:\(toScaleY) alpha:\(toAlpha)")
         
         super.init()
         
         originScaleX = self.xscale(target)
         originScaleY = self.yscale(target)
+        originRotation = self.rotation(target) * Float(180 / M_PI)
+        
+        //println(originRotation)
         
         setup()
     }
@@ -218,6 +229,7 @@ class TweenObject:NSObject {
             var newAlpha:Float!
             var newScaleX:Float!
             var newScaleY:Float!
+            var newRotation:Float!
             
             if toX != nil {
                 newX = getNewValue(toX, fromValue: Float(targetFrame.origin.x), ease: easeNumber!)
@@ -255,8 +267,18 @@ class TweenObject:NSObject {
                 newScaleY = yscale(target)
             }
             
-            var newTransform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+            if toRotation != nil {
+                newRotation = getNewValue(toRotation, fromValue: originRotation, ease: easeNumber!)
+            } else {
+                newRotation = rotation(target) * Float(180 / M_PI)
+            }
             
+            var scaleTransform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+            var rotateTransform = CGAffineTransformMakeRotation(CGFloat(Double(newRotation)/180.0*M_PI))
+            //var newTransform = CGAffineTransformMakeRotation(CGFloat(Double(newRotation)/180.0*M_PI))
+            var newTransform = CGAffineTransformConcat(scaleTransform, rotateTransform)
+            
+            //println("scaleX: \(newScaleX) scaleY: \(newScaleY)")
             var newFrame = target.frame
             newFrame.origin.x = CGFloat(newX)
             newFrame.origin.y = CGFloat(newY)
@@ -265,30 +287,35 @@ class TweenObject:NSObject {
             newCenter.x = CGFloat(newX)
             newCenter.y = CGFloat(newY)
             
-            if(toScaleX == nil) {
+            /*if(toScaleX == nil) {
                 newFrame.size.width = CGFloat(newW)
             }
             
             if(toScaleY == nil) {
                 newFrame.size.height = CGFloat(newH)
-            }
+            }*/
             
             if((target as? UIView) != nil){
                 var newTarget = (target as UIView)
-                
-                if(toScaleX != nil || toScaleY != nil) {
+                //print("uiview")
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
+                    
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
                     if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    //newFrame.size.width = newTarget.bounds.size.width
+                    //newFrame.size.height = newTarget.bounds.size.height
                     newTarget.frame = newFrame
+                    //newTarget.bounds = newFrame
+                    //println(newFrame)
                 } else {
                     newTarget.frame = newFrame
                 }
             } else if((target as? UILabel) != nil){
                 var newTarget = (target as UILabel)
                 
-                if(toScaleX != nil || toScaleY != nil) {
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
@@ -300,7 +327,7 @@ class TweenObject:NSObject {
             } else if((target as? UIImageView) != nil){
                 var newTarget = (target as UIImageView)
                 
-                if(toScaleX != nil || toScaleY != nil) {
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
@@ -311,20 +338,21 @@ class TweenObject:NSObject {
                 }
             } else if((target as? UIButton) != nil){
                 var newTarget = (target as UIButton)
-                
-                if(toScaleX != nil || toScaleY != nil) {
+                println("uibutton")
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
                     if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
-                    newTarget.frame = newFrame
+                    //newTarget.frame = newFrame
+                    println(newFrame)
                 } else {
                     newTarget.frame = newFrame
                 }
             } else if((target as? UICollectionView) != nil){
                 var newTarget = (target as UICollectionView)
                 
-                if(toScaleX != nil || toScaleY != nil) {
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
@@ -336,7 +364,7 @@ class TweenObject:NSObject {
             } else if((target as? UITextView) != nil){
                 var newTarget = (target as UITextView)
                 
-                if(toScaleX != nil || toScaleY != nil) {
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
@@ -348,7 +376,7 @@ class TweenObject:NSObject {
             } else if((target as? UIScrollView) != nil){
                 var newTarget = (target as UIScrollView)
                 
-                if(toScaleX != nil || toScaleY != nil) {
+                if(toScaleX != nil || toScaleY != nil || toRotation != nil) {
                     newTarget.transform = newTransform
                     newFrame = newTarget.frame
                     if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
@@ -483,6 +511,34 @@ class TweenObject:NSObject {
             t = (item as UICollectionView).transform;
         }
         return Float(sqrt(t.b * t.b + t.d * t.d));
+    }
+    
+    func rotation(item:AnyObject)->Float {
+        var t:CGAffineTransform!
+        
+        if item is UIView {
+            t = (item as UIView).transform;
+        }
+        if item is UILabel {
+            t = (item as UILabel).transform;
+        }
+        if item is UIImageView {
+            t = (item as UIImageView).transform;
+        }
+        if item is UIButton {
+            t = (item as UIButton).transform;
+        }
+        if item is UITextView {
+            t = (item as UITextView).transform;
+        }
+        if item is UIScrollView {
+            t = (item as UIScrollView).transform;
+        }
+        if item is UICollectionView {
+            t = (item as UICollectionView).transform;
+        }
+        
+        return Float(atan2f(Float(t.b), Float(t.a)));
     }
     
     func getEaseNumber(type:String, time:Float)->Float {
