@@ -23,7 +23,9 @@ In this example:
 - “time” will be how long the animation will be.
 - “params” is a Dictionary which store the tween parameters, delay time and easing type.
 
-### How to use ###
+# How to use #
+
+Drag the folder "GTween" into your xCode project, remember to check "Add to target", then you are ready to tween the objects
 
 I made it to be very simple to use, let imagine that I have an UIView on the screen called “item”
 
