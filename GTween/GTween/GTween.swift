@@ -9,7 +9,18 @@
 import UIKit
 import QuartzCore
 
-
+let alpha = "alpha"
+let x = "x"
+let y = "y"
+let scaleX = "scaleX"
+let scaleY = "scaleY"
+let width = "width"
+let height = "height"
+let ease = "ease"
+let delay = "delay"
+let onComplete = "onComplete"
+let onUpdate = "onUpdate"
+let onStart = "onStart"
 
 struct GTween {
     //static var loop:CADisplayLink!
@@ -40,7 +51,7 @@ class TweenObject:NSObject {
     var targetFrame:CGRect!
     var currentTime:Double = 0
     var totalTime:Double = 0
-    var delay:Double = 0
+    var delayTime:Double = 0
     
     var repeat:Int = 0
     var repeatCount:Int = 0
@@ -54,7 +65,7 @@ class TweenObject:NSObject {
     var inputParams:Dictionary<String, Any>!
     var tweenParams:[String: AnyObject]!
     
-    var ease:Float?
+    var easeNumber:Float?
     var easeType:String = "Linear.easeNone" //default
     
     var linearMode:ModeLinear = ModeLinear()
@@ -76,15 +87,17 @@ class TweenObject:NSObject {
     var runOnStart:(()->())?
     
     //tween values
-    var x:Float!
-    var y:Float!
-    var width:Float!
-    var height:Float!
-    var scaleX:Float!
-    var scaleY:Float!
-    var alpha:Float!
+    var toX:Float!
+    var toY:Float!
+    var toWidth:Float!
+    var toHeight:Float!
+    var toScaleX:Float!
+    var toScaleY:Float!
+    var toAlpha:Float!
     var originScaleX:Float!
     var originScaleY:Float!
+    var originCenterX:Float!
+    var originCenterY:Float!
     
     init(_target:AnyObject, time:Float, params:[String: Any], events:[String: ()->Void] = Dictionary()){
         target = _target
@@ -92,16 +105,20 @@ class TweenObject:NSObject {
         targetFrame = target.frame;
         inputParams = params;
         println(targetFrame)
+        
+        originCenterX = Float(target.center.x)
+        originCenterY = Float(target.center.y)
+        
         if var inputEase = params["ease"] as? String {
             easeType = String(inputEase)
         }
         
         if var delayInInt = params["delay"] as? Int {
-            delay = Double(delayInInt)
+            delayTime = Double(delayInInt)
         } else if let delayInDouble = params["delay"] as? Float {
-            delay = Double(delayInDouble)
+            delayTime = Double(delayInDouble)
         } else if let delayInFloat = params["delay"] as? Double {
-            delay = delayInFloat
+            delayTime = delayInFloat
         }
         
         runOnComplete  = events["onComplete"]
@@ -109,62 +126,61 @@ class TweenObject:NSObject {
         runOnStart     = events["onStart"]
         
         if var xInInt = params["x"] as? Int {
-            x = Float(xInInt)
+            toX = Float(xInInt)
         } else if let xInDouble = params["x"] as? Double {
-            x = Float(xInDouble)
+            toX = Float(xInDouble)
         } else if let xInFloat = params["x"] as? Float {
-            x = xInFloat
-        }
+            toX = xInFloat
+        } 
         
         if let yInInt = params["y"] as? Int {
-            y = Float(yInInt)
+            toY = Float(yInInt)
         } else if let yInDouble = params["y"] as? Double {
-            y = Float(yInDouble)
+            toY = Float(yInDouble)
         } else if let yInFloat = params["y"] as? Float {
-            y = yInFloat
+            toY = yInFloat
         }
-        
         if let widthInInt = params["width"] as? Int {
-            width = Float(widthInInt)
+            toWidth = Float(widthInInt)
         } else if let widthInDouble = params["width"] as? Double {
-            width = Float(widthInDouble)
+            toWidth = Float(widthInDouble)
         } else if let widthInFloat = params["width"] as? Float {
-            width = widthInFloat
+            toWidth = widthInFloat
         }
         
         if let heightInInt = params["height"] as? Int {
-            height = Float(heightInInt)
+            toHeight = Float(heightInInt)
         } else if let heightInDouble = params["height"] as? Double {
-            height = Float(heightInDouble)
+            toHeight = Float(heightInDouble)
         } else if let heightInFloat = params["height"] as? Float {
-            height = heightInFloat
+            toHeight = heightInFloat
         }
         
         if let scaleXInInt = params["scaleX"] as? Int {
-            scaleX = Float(scaleXInInt)
+            toScaleX = Float(scaleXInInt)
         } else if let scaleXInDouble = params["scaleX"] as? Double {
-            scaleX = Float(scaleXInDouble)
+            toScaleX = Float(scaleXInDouble)
         } else if let scaleXInFloat = params["scaleX"] as? Float {
-            scaleX = scaleXInFloat
+            toScaleX = scaleXInFloat
         }
         
         if let scaleYInInt = params["scaleY"] as? Int {
-            scaleY = Float(scaleYInInt)
+            toScaleY = Float(scaleYInInt)
         } else if let scaleYInDouble = params["scaleY"] as? Double {
-            scaleY = Float(scaleYInDouble)
+            toScaleY = Float(scaleYInDouble)
         } else if let scaleYInFloat = params["scaleY"] as? Float {
-            scaleY = scaleYInFloat
+            toScaleY = scaleYInFloat
         }
         
         if let alphaInInt = params["alpha"] as? Int {
-            alpha = Float(alphaInInt)
+            toAlpha = Float(alphaInInt)
         } else if let alphaInDouble = params["alpha"] as? Double {
-            alpha = Float(alphaInDouble)
+            toAlpha = Float(alphaInDouble)
         } else if let alphaInFloat = params["alpha"] as? Float {
-            alpha = alphaInFloat
+            toAlpha = alphaInFloat
         }
         
-        println("x:\(x) y:\(y) scaleX:\(scaleX) scaleY:\(scaleY) alpha:\(alpha)")
+        println("x:\(toX) y:\(toY) scaleX:\(toScaleX) scaleY:\(toScaleY) alpha:\(toAlpha)")
         
         super.init()
         
@@ -182,10 +198,10 @@ class TweenObject:NSObject {
     
     func onLoop(){
         //println("\(currentTime)")
-        if ((currentTime >= delay && speed > 0) || (speed < 0))// && _currentTime <= _totalTime))
+        if ((currentTime >= delayTime && speed > 0) || (speed < 0))// && _currentTime <= _totalTime))
         {
             //var value;
-            var time = Float((currentTime - delay) / Double(_time));
+            var time = Float((currentTime - delayTime) / Double(_time));
             //make this nicer!
             time = fminf(1.0, fmaxf(0.0, time));
             
@@ -193,7 +209,7 @@ class TweenObject:NSObject {
             //        UPDATE VALUES
             //=============================================
             
-            ease = getEaseNumber(easeType, time: time)
+            easeNumber = getEaseNumber(easeType, time: time)
             
             var newX:Float!
             var newY:Float!
@@ -203,83 +219,144 @@ class TweenObject:NSObject {
             var newScaleX:Float!
             var newScaleY:Float!
             
-            if x != nil {
-                newX = getNewValue(x, fromValue: Float(targetFrame.origin.x), ease: ease!)
+            if toX != nil {
+                newX = getNewValue(toX, fromValue: Float(targetFrame.origin.x), ease: easeNumber!)
             } else {
                 newX = Float(targetFrame.origin.x)
             }
             
-            if y != nil {
-                newY = getNewValue(y, fromValue: Float(targetFrame.origin.y), ease: ease!)
+            if toY != nil {
+                newY = getNewValue(toY, fromValue: Float(targetFrame.origin.y), ease: easeNumber!)
             } else {
                 newY = Float(targetFrame.origin.y)
             }
             
-            if width != nil {
-                newW = getNewValue(width, fromValue: Float(targetFrame.size.width), ease: ease!)
+            if toWidth != nil {
+                newW = getNewValue(toWidth, fromValue: Float(targetFrame.size.width), ease: easeNumber!)
             } else {
                 newW = Float(targetFrame.size.width)
             }
             
-            if height != nil {
-                newH = getNewValue(height, fromValue: Float(targetFrame.size.height), ease: ease!)
+            if toHeight != nil {
+                newH = getNewValue(toHeight, fromValue: Float(targetFrame.size.height), ease: easeNumber!)
             } else {
                 newH = Float(targetFrame.size.height)
             }
             
-            if scaleX != nil {
-                newScaleX = getNewValue(scaleX, fromValue: originScaleX, ease: ease!)
+            if toScaleX != nil {
+                newScaleX = getNewValue(toScaleX, fromValue: originScaleX, ease: easeNumber!)
             } else {
                 newScaleX = xscale(target)
             }
             
-            if scaleY != nil {
-                newScaleY = getNewValue(scaleY, fromValue: originScaleY, ease: ease!)
+            if toScaleY != nil {
+                newScaleY = getNewValue(toScaleY, fromValue: originScaleY, ease: easeNumber!)
             } else {
                 newScaleY = yscale(target)
             }
+            
+            var newTransform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
             
             var newFrame = target.frame
             newFrame.origin.x = CGFloat(newX)
             newFrame.origin.y = CGFloat(newY)
             
-            if(newScaleX == nil) { newFrame.size.width = CGFloat(newW) }
-            if(newScaleY == nil) { newFrame.size.height = CGFloat(newH) }
+            var newCenter = target.center
+            newCenter.x = CGFloat(newX)
+            newCenter.y = CGFloat(newY)
+            
+            if(toScaleX == nil) {
+                newFrame.size.width = CGFloat(newW)
+            }
+            
+            if(toScaleY == nil) {
+                newFrame.size.height = CGFloat(newH)
+            }
             
             if((target as? UIView) != nil){
                 var newTarget = (target as UIView)
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UILabel) != nil){
                 var newTarget = (target as UILabel)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UIImageView) != nil){
                 var newTarget = (target as UIImageView)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UIButton) != nil){
                 var newTarget = (target as UIButton)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UICollectionView) != nil){
                 var newTarget = (target as UICollectionView)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UITextView) != nil){
                 var newTarget = (target as UITextView)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UIScrollView) != nil){
                 var newTarget = (target as UIScrollView)
                 
-                newTarget.frame = newFrame
-                newTarget.transform = CGAffineTransformMakeScale(CGFloat(newScaleX), CGFloat(newScaleY))
+                if(toScaleX != nil || toScaleY != nil) {
+                    newTarget.transform = newTransform
+                    newFrame = newTarget.frame
+                    if(toX != nil){ newFrame.origin.x = CGFloat(newX) }
+                    if(toY != nil){ newFrame.origin.y = CGFloat(newY) }
+                    newTarget.frame = newFrame
+                } else {
+                    newTarget.frame = newFrame
+                }
             } else if((target as? UIPickerView) != nil){
                 (target as UIPickerView).frame = newFrame
             } else if((target as? UIWebView) != nil){
@@ -298,8 +375,8 @@ class TweenObject:NSObject {
                 (target as UIStepper).frame = newFrame
             }
             
-            if alpha != nil {
-                newAlpha = getNewValue(alpha, fromValue: Float(target.layer.opacity), ease: ease!)
+            if toAlpha != nil {
+                newAlpha = getNewValue(toAlpha, fromValue: Float(target.layer.opacity), ease: easeNumber!)
                 target.layer.opacity = newAlpha
             } else {
                 newAlpha = Float(target.layer.opacity)
