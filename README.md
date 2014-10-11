@@ -1,4 +1,4 @@
-### Introduction ###
+**# Introduction #**
 
 Ok, guys. This is my story. I has been a Flash Developer for years, has just tried to learn Objective-C for a few months, then Apple released a new Programming Language called Swift, the first time I looked at it, I felt it looked very close to Action Script syntax. After that, I decided to code a very first application by Swift, but when I start using UIAnimation.. I felt so disappointed! The easing looks very bad, I surprise that Apple didn’t give us the easing options?! 
 
@@ -6,7 +6,7 @@ My decision was changed, I put my very first app aside and tried to create a twe
 
 My mind started to be blew off.. but finally I came up with a result. So far so good. Now check it out!
 
-### How it looks ###
+**# How it looks #**
 
 If you’ve used TweenMax for ActionScript or Javascript, this line will look very familiar for sure:
 
@@ -23,7 +23,7 @@ In this example:
 - “time” will be how long the animation will be.
 - “params” is a Dictionary which store the tween parameters, delay time and easing type.
 
-# How to use #
+**# How to use #**
 
 Drag the folder "GTween" into your xCode project, remember to check "Add to target", then you are ready to tween the objects
 
@@ -95,7 +95,7 @@ Quad
 
 ![[image-graphs]](https://bitbucket.org/repo/8nzR9B/images/3903256087-easing.jpg)s]](https://bitbucket.org/repo/8nzR9B/images/1128945927-easing.jpg)s]](https://bitbucket.org/repo/8nzR9B/images/4021603493-easing.jpg)
 
-### Events ###
+**# Events #**
 
 You want to execute another function when the tween is finished? You want to know the progress of the tween? Don’t worry, these events will take care of that:
 
