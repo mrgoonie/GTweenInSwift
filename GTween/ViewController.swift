@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         
         //item.layer.cornerRadius = 20
         
-        GTween.to(item, time: 2, params: [y:100, scaleX:3, scaleY:3, ease:Bounce.easeOut, delay:1],
+        /*GTween.to(item, time: 2, params: [y:100, scaleX:3, scaleY:3, ease:Bounce.easeOut, delay:1],
             events: [onComplete:{
                 println("item move complete")
             }])
@@ -29,21 +29,22 @@ class ViewController: UIViewController {
             events: ["onComplete":{
                 println("label move complete")
             }])
+        */
         
-        GTween.to(btn, time: 2, params: ["x":200, alpha:0.5, "ease":Elastic.easeOut, "delay":2],
+        GTween.to(btn, time: 2, params: [x:200, "ease":Quint.easeOut, "delay":2],
             events: ["onComplete":{
                 println("btn move complete")
             }])
         
-        GTween.to(img, time: 2,
+        /*GTween.to(img, time: 2,
             params: [x:250, y:250, ease:Back.easeInOut, delay:2.5],
             events: [onStart:{
-                    println("I start to move!")
+                    //println("I start to move!")
                 }, onUpdate: {
-                    println("I'm movinggggg...")
+                    //println("I'm movinggggg...")
                 }, onComplete: {
-                    println("I'm at the new position!")
-                }])
+                    //println("I'm at the new position!")
+                }])*/
     }
 
     override func didReceiveMemoryWarning() {
