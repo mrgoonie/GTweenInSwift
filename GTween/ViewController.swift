@@ -31,10 +31,10 @@ class ViewController: UIViewController {
             }])
         */
         
-        GTween.to(btn, time: 2, params: [x:200, "ease":Quint.easeOut, "delay":2],
+        /*GTween.to(btn, time: 2, params: [x:200, "ease":Quint.easeOut, "delay":2],
             events: ["onComplete":{
                 println("btn move complete")
-            }])
+            }])*/
         
         /*GTween.to(img, time: 2,
             params: [x:250, y:250, ease:Back.easeInOut, delay:2.5],
@@ -45,6 +45,8 @@ class ViewController: UIViewController {
                 }, onComplete: {
                     //println("I'm at the new position!")
                 }])*/
+        
+        GTween.set(img, params: [x:10, y:10, scaleX:2, scaleY:2, rotation:90, delay:2])
     }
 
     override func didReceiveMemoryWarning() {

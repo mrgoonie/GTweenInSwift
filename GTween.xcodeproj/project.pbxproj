@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5544F9319EB892C00E64F89 /* SetObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5544F9219EB892C00E64F89 /* SetObject.swift */; };
+		C5544F9519EB8B4700E64F89 /* TweenGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5544F9419EB8B4700E64F89 /* TweenGlobal.swift */; };
+		C5544F9819EB8BA500E64F89 /* TweenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5544F9719EB8BA500E64F89 /* TweenObject.swift */; };
 		C55584C919E639EB003C96D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584C819E639EB003C96D8 /* AppDelegate.swift */; };
 		C55584CB19E639EB003C96D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55584CA19E639EB003C96D8 /* ViewController.swift */; };
 		C55584CE19E639EB003C96D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55584CC19E639EB003C96D8 /* Main.storyboard */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C5544F9219EB892C00E64F89 /* SetObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetObject.swift; path = GTween/plugins/SetObject.swift; sourceTree = "<group>"; };
+		C5544F9419EB8B4700E64F89 /* TweenGlobal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweenGlobal.swift; path = GTween/plugins/TweenGlobal.swift; sourceTree = "<group>"; };
+		C5544F9719EB8BA500E64F89 /* TweenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweenObject.swift; path = GTween/plugins/TweenObject.swift; sourceTree = "<group>"; };
 		C55584C319E639EB003C96D8 /* GTween.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTween.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55584C719E639EB003C96D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55584C819E639EB003C96D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +88,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C5544F9619EB8B4F00E64F89 /* plugins */ = {
+			isa = PBXGroup;
+			children = (
+				C5544F9219EB892C00E64F89 /* SetObject.swift */,
+				C5544F9719EB8BA500E64F89 /* TweenObject.swift */,
+			);
+			name = plugins;
+			sourceTree = "<group>";
+		};
+		C5544F9919EB8C4C00E64F89 /* global */ = {
+			isa = PBXGroup;
+			children = (
+				C5544F9419EB8B4700E64F89 /* TweenGlobal.swift */,
+			);
+			name = global;
+			sourceTree = "<group>";
+		};
 		C55584BA19E639EB003C96D8 = {
 			isa = PBXGroup;
 			children = (
@@ -142,7 +165,9 @@
 		C55584E819E63A56003C96D8 /* GTween */ = {
 			isa = PBXGroup;
 			children = (
+				C5544F9919EB8C4C00E64F89 /* global */,
 				C55584EB19E64A6D003C96D8 /* easings */,
+				C5544F9619EB8B4F00E64F89 /* plugins */,
 				C55584E919E63A9A003C96D8 /* GTween.swift */,
 			);
 			name = GTween;
@@ -277,9 +302,12 @@
 				C55584ED19E64ABB003C96D8 /* Linear.swift in Sources */,
 				C5CE783C19E7B908007C5C34 /* Ease.swift in Sources */,
 				C5CE783A19E7B67E007C5C34 /* Elastic.swift in Sources */,
+				C5544F9519EB8B4700E64F89 /* TweenGlobal.swift in Sources */,
 				C5CE783819E7B328007C5C34 /* Quint.swift in Sources */,
+				C5544F9819EB8BA500E64F89 /* TweenObject.swift in Sources */,
 				C5CE783E19E7BDFA007C5C34 /* Bounce.swift in Sources */,
 				C5CE784A19E7CA34007C5C34 /* Quad.swift in Sources */,
+				C5544F9319EB892C00E64F89 /* SetObject.swift in Sources */,
 				C5CE783619E7A035007C5C34 /* Back.swift in Sources */,
 				C55584EA19E63A9A003C96D8 /* GTween.swift in Sources */,
 			);
