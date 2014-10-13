@@ -17,11 +17,20 @@ If you’ve used TweenMax for ActionScript or Javascript, this line will look ve
 GTween.to(target, time: 0.5, params: [x: 100, y:100, ease: Quint.easeOut])
 ```
 
-
 In this example:
 - “target” can be UIView, UILabel, UIImageView, UIButton,… 
 - “time” will be how long the animation will be.
 - “params” is a Dictionary which store the tween parameters, delay time and easing type.
+
+How about set these values into the target imediately or after delay? Here, use this:
+
+```
+#!Swift
+
+// This line will set the position of the view to {x:100px, y:100px} after 1 second
+// Of course it doesn't contain "ease" or "events"
+GTween.set(target, params: [x: 100, y:100, delay:1])
+```
 
 **# How to use #**
 
@@ -121,6 +130,17 @@ That’s it!
 Now I can go back with my very first app! I hope this **GTween** will make your life of Swift Coder become much easier. You’re welcome. 
 
 It will have bugs, I can't fixed them all right now, I will improve this framework later when I have more free time, in the mean time, if you want to fork it, please feel free to, you guys must have a lot more experiences with iOS than me :)
+
+**# Update 1 #**
+Add the feature to set the values into the view.
+
+```
+#!Swift
+
+// This line will set the position of the view to {x:100px, y:100px} after 1 second
+// Of course it doesn't contain "ease" or "events"
+GTween.set(target, params: [x: 100, y:100, delay:1])
+```
 
 *Cheers,
 Goon Nguyen
