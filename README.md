@@ -157,6 +157,6 @@ Add the feature to tween the constraint when you're using Auto Layout.
 GTween.constraintTo(self, constraint: constraintInstance, time: 1, params: ["constant": 100, ease:Back.easeOut])
 ```
 
-*Cheers,
-Goon Nguyen
-duynguyen@topane.com*
+*Cheers,*
+*Goon Nguyen*
+*duynguyen@topane.com*
