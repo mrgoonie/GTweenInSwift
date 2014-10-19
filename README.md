@@ -17,7 +17,6 @@ If you’ve used TweenMax for ActionScript or Javascript, this line will look ve
 GTween.to(target, time: 0.5, params: [x: 100, y:100, ease: Quint.easeOut])
 ```
 
-
 In this example:
 - “target” can be UIView, UILabel, UIImageView, UIButton,… 
 - “time” will be how long the animation will be.
@@ -118,12 +117,12 @@ GTween.to(img, time: 2,
                     println("I start to move!")
                 }, onUpdate: {
                     println("I'm movinggggg...")
-                }, onComplete: {
+                }, "onComplete": {
                     println("I'm at the new position!")
                 }])
 ```
 
-Currently it contains 3 optional events: onStart, onUpdate, onComplete.
+Currently it contains 3 optional events: "onStart", "onUpdate", "onComplete".
 
 That’s it! 
 
