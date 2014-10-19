@@ -113,9 +113,9 @@ You want to execute another function when the tween is finished? You want to kno
 
 GTween.to(img, time: 2,
             params: [x:250, y:250, ease:Back.easeInOut, delay:2.5],
-            events: [onStart:{
+            events: ["onStart":{
                     println("I start to move!")
-                }, onUpdate: {
+                }, "onUpdate": {
                     println("I'm movinggggg...")
                 }, "onComplete": {
                     println("I'm at the new position!")
