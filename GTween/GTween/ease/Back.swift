@@ -10,9 +10,9 @@ import Foundation
 
 struct Back {
     
-    static var easeIn:String { return Ease.Back + ".easeIn" }
-    static var easeOut:String { return Ease.Back + ".easeOut" }
-    static var easeInOut:String { return Ease.Back + ".easeInOut" }
+    static var easeIn:String { return "Back.easeIn" }
+    static var easeOut:String { return "Back.easeOut" }
+    static var easeInOut:String { return "Back.easeInOut" }
     
 }
 

@@ -19,9 +19,6 @@ let height = "height"
 let rotation = "rotation"
 let ease = "ease"
 let delay = "delay"
-let onComplete = "onComplete"
-let onUpdate = "onUpdate"
-let onStart = "onStart"
 
 func xscale(item:AnyObject)->Float {
     var t:CGAffineTransform!

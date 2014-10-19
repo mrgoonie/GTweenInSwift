@@ -10,9 +10,9 @@ import Foundation
 
 struct Cubic {
     
-    static var easeIn:String { return Ease.Cubic + ".easeIn" }
-    static var easeOut:String { return Ease.Cubic + ".easeOut" }
-    static var easeInOut:String { return Ease.Cubic + ".easeInOut" }
+    static var easeIn:String { return "Cubic.easeIn" }
+    static var easeOut:String { return "Cubic.easeOut" }
+    static var easeInOut:String { return "Cubic.easeInOut" }
     
 }
 

@@ -9,9 +9,9 @@
 import Foundation
 
 struct Elastic {
-    static var easeIn:String { return Ease.Elastic + ".easeIn" }
-    static var easeOut:String { return Ease.Elastic + ".easeOut" }
-    static var easeInOut:String { return Ease.Elastic + ".easeInOut" }
+    static var easeIn:String { return "Elastic.easeIn" }
+    static var easeOut:String { return "Elastic.easeOut" }
+    static var easeInOut:String { return "Elastic.easeInOut" }
 }
 
 class ModeElastic {

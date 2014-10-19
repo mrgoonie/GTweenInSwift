@@ -38,7 +38,7 @@ class TweenObject:NSObject {
     var easeNumber:Float?
     var easeType:String = "Linear.easeNone" //default
     
-    var linearMode:ModeLinear = ModeLinear()
+    /*var linearMode:ModeLinear = ModeLinear()
     var backMode:ModeBack = ModeBack()
     var quintMode:ModeQuint = ModeQuint()
     var elasticMode:ModeElastic = ModeElastic()
@@ -48,7 +48,7 @@ class TweenObject:NSObject {
     var circMode:ModeCirc = ModeCirc()
     var cubicMode:ModeCubic = ModeCubic()
     var quartMode:ModeQuart = ModeQuart()
-    var quadMode:ModeQuad = ModeQuad()
+    var quadMode:ModeQuad = ModeQuad()*/
     
     typealias OnCompleteType = ()->Void
     
@@ -192,7 +192,7 @@ class TweenObject:NSObject {
             //        UPDATE VALUES
             //=============================================
             
-            easeNumber = getEaseNumber(easeType, time: time)
+            easeNumber = Ease.getEaseNumber(easeType, time: time)
             
             var newX:Float!
             var newY:Float!
@@ -430,170 +430,6 @@ class TweenObject:NSObject {
         }
         
         currentTime += loop.duration * speed;
-    }
-    
-    func getEaseNumber(type:String, time:Float)->Float {
-        var result:Float;
-        
-        switch(type){
-            
-        case Back.easeOut:
-            backMode.time = time
-            result = backMode.easeOutNumber
-            break
-            
-        case Back.easeIn:
-            backMode.time = time
-            result = backMode.easeInNumber
-            break
-            
-        case Back.easeInOut:
-            backMode.time = time
-            result = backMode.easeInOutNumber
-            break
-            
-        case Elastic.easeOut:
-            elasticMode.time = time
-            result = elasticMode.easeOutNumber
-            break
-            
-        case Elastic.easeIn:
-            elasticMode.time = time
-            result = elasticMode.easeInNumber
-            break
-            
-        case Elastic.easeInOut:
-            elasticMode.time = time
-            result = elasticMode.easeInOutNumber
-            break
-            
-        case Bounce.easeOut:
-            bounceMode.time = time
-            result = bounceMode.easeOutNumber
-            break
-            
-        case Bounce.easeIn:
-            bounceMode.time = time
-            result = bounceMode.easeInNumber
-            break
-            
-        case Bounce.easeInOut:
-            bounceMode.time = time
-            result = bounceMode.easeInOutNumber
-            break
-            
-        case Sine.easeOut:
-            sineMode.time = time
-            result = sineMode.easeOutNumber
-            break
-            
-        case Sine.easeIn:
-            sineMode.time = time
-            result = sineMode.easeInNumber
-            break
-            
-        case Sine.easeInOut:
-            sineMode.time = time
-            result = sineMode.easeInOutNumber
-            break
-            
-        case Expo.easeOut:
-            expoMode.time = time
-            result = expoMode.easeOutNumber
-            break
-            
-        case Expo.easeIn:
-            expoMode.time = time
-            result = expoMode.easeInNumber
-            break
-            
-        case Expo.easeInOut:
-            expoMode.time = time
-            result = expoMode.easeInOutNumber
-            break
-            
-        case Circ.easeOut:
-            circMode.time = time
-            result = circMode.easeOutNumber
-            break
-            
-        case Circ.easeIn:
-            circMode.time = time
-            result = circMode.easeInNumber
-            break
-            
-        case Circ.easeInOut:
-            circMode.time = time
-            result = circMode.easeInOutNumber
-            break
-            
-        case Cubic.easeOut:
-            cubicMode.time = time
-            result = cubicMode.easeOutNumber
-            break
-            
-        case Cubic.easeIn:
-            cubicMode.time = time
-            result = cubicMode.easeInNumber
-            break
-            
-        case Cubic.easeInOut:
-            cubicMode.time = time
-            result = cubicMode.easeInOutNumber
-            break
-            
-        case Quad.easeOut:
-            quadMode.time = time
-            result = quadMode.easeOutNumber
-            break
-            
-        case Quad.easeIn:
-            quadMode.time = time
-            result = quadMode.easeInNumber
-            break
-            
-        case Quad.easeInOut:
-            quadMode.time = time
-            result = quadMode.easeInOutNumber
-            break
-            
-        case Quart.easeOut:
-            quartMode.time = time
-            result = quartMode.easeOutNumber
-            break
-            
-        case Quart.easeIn:
-            quartMode.time = time
-            result = quartMode.easeInNumber
-            break
-            
-        case Quart.easeInOut:
-            quartMode.time = time
-            result = quartMode.easeInOutNumber
-            break
-            
-        case Quint.easeOut:
-            quintMode.time = time
-            result = quintMode.easeOutNumber
-            break
-            
-        case Quint.easeIn:
-            quintMode.time = time
-            result = quintMode.easeInNumber
-            break
-            
-        case Quint.easeInOut:
-            quintMode.time = time
-            result = quintMode.easeInOutNumber
-            break
-            
-        default:
-            linearMode.time = time
-            result = linearMode.easeNoneNumber
-            break
-        }
-        
-        return result
     }
     
     func getNewValue(toValue:Float, fromValue:Float, ease:Float)->Float {

@@ -12,7 +12,7 @@ struct Linear {
     
     //static var time:Float!
     
-    static var easeNone:String { return Ease.Linear + ".easeNone" }
+    static var easeNone:String { return "Linear.easeNone" }
     
     
 }

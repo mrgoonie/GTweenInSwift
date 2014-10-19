@@ -10,9 +10,9 @@ import Foundation
 
 struct Circ {
     
-    static var easeIn:String { return Ease.Circ + ".easeIn" }
-    static var easeOut:String { return Ease.Circ + ".easeOut" }
-    static var easeInOut:String { return Ease.Circ + ".easeInOut" }
+    static var easeIn:String { return "Circ.easeIn" }
+    static var easeOut:String { return "Circ.easeOut" }
+    static var easeInOut:String { return "Circ.easeInOut" }
     
 }
 

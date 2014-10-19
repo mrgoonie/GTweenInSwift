@@ -10,9 +10,9 @@ import Foundation
 
 struct Quad {
     
-    static var easeIn:String { return Ease.Quad + ".easeIn" }
-    static var easeOut:String { return Ease.Quad + ".easeOut" }
-    static var easeInOut:String { return Ease.Quad + ".easeInOut" }
+    static var easeIn:String { return "Quad.easeIn" }
+    static var easeOut:String { return "Quad.easeOut" }
+    static var easeInOut:String { return "Quad.easeInOut" }
     
 }
 

@@ -23,7 +23,7 @@ In this example:
 - “time” will be how long the animation will be.
 - “params” is a Dictionary which store the tween parameters, delay time and easing type.
 
-How about set these values into the target imediately? 
+How about set these values into the target imediately or after delay? Here, use this:
 
 ```
 #!Swift

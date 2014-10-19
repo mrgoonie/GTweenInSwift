@@ -10,9 +10,9 @@ import Foundation
 
 struct Expo {
     
-    static var easeIn:String { return Ease.Expo + ".easeIn" }
-    static var easeOut:String { return Ease.Expo + ".easeOut" }
-    static var easeInOut:String { return Ease.Expo + ".easeInOut" }
+    static var easeIn:String { return "Expo.easeIn" }
+    static var easeOut:String { return "Expo.easeOut" }
+    static var easeInOut:String { return "Expo.easeInOut" }
     
 }
 

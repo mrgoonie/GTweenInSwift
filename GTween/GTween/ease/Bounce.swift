@@ -9,9 +9,9 @@
 import Foundation
 
 struct Bounce {
-    static var easeIn:String { return Ease.Bounce + ".easeIn" }
-    static var easeOut:String { return Ease.Bounce + ".easeOut" }
-    static var easeInOut:String { return Ease.Bounce + ".easeInOut" }
+    static var easeIn:String { return "Bounce.easeIn" }
+    static var easeOut:String { return "Bounce.easeOut" }
+    static var easeInOut:String { return "Bounce.easeInOut" }
 }
 
 class ModeBounce {

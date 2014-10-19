@@ -10,9 +10,9 @@ import Foundation
 
 struct Sine {
     
-    static var easeIn:String { return Ease.Sine + ".easeIn" }
-    static var easeOut:String { return Ease.Sine + ".easeOut" }
-    static var easeInOut:String { return Ease.Sine + ".easeInOut" }
+    static var easeIn:String { return "Sine.easeIn" }
+    static var easeOut:String { return "Sine.easeOut" }
+    static var easeInOut:String { return "Sine.easeInOut" }
     
 }
 
