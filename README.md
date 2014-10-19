@@ -141,6 +141,22 @@ Add the feature to set the values into the view.
 GTween.set(target, params: [x: 100, y:100, delay:1])
 ```
 
+**# Update 2 #**
+Add the feature to tween the constraint when you're using Auto Layout.
+
+```
+#!Swift
+
+// Let says we have a IBOutlet from storyboard:
+
+@IBOutlet weak var constraintInstance: NSLayoutConstraint!
+
+// Let change the constant value to 100 with easing:
+// "self" here is the current view controller
+
+GTween.constraintTo(self, constraint: constraintInstance, time: 1, params: ["constant": 100, ease:Back.easeOut])
+```
+
 *Cheers,
 Goon Nguyen
 duynguyen@topane.com*
