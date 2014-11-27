@@ -4,6 +4,8 @@ Ok, guys. This is my story. I has been a Flash Developer for years, has just tri
 
 My decision was changed, I put my very first app aside and tried to create a tween framework just like how TweenMax in ActionScript/Javascript. I named it **GTween** (G is actually a first character of my nickname - Goon)
 
+Please come support me and have a relax time with my very first game - Numberize: https://itunes.apple.com/us/app/numberize-game/id938329456
+
 My mind started to be blew off.. but finally I came up with a result. So far so good. Now check it out!
 
 **# How it looks #**
